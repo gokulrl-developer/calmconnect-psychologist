@@ -64,39 +64,66 @@ const Availability: React.FC = () => {
 
   // --- UI Components ---
   const renderTabs = () => (
-    <div className="flex space-x-2 mb-6 border-b pb-3 bg-white sticky top-0 z-10" style={{ boxShadow: '0 2px 8px 0 rgba(0,0,0,0.01)' }}>
+    <div className="flex space-x-1 mb-4 border-b border-gray-100 pb-0 bg-white sticky top-0 z-10 shadow-sm rounded-t-lg">
       <Button
         variant={activeTab === 'summary' ? 'primary' : 'outline'}
         onClick={() => setActiveTab('summary')}
-        className="rounded-t-lg border-b-2"
+        className="rounded-t-lg border-b-4 px-4 py-2 font-semibold transition-all duration-200 hover:shadow-md"
         style={activeTab === 'summary'
-          ? { borderColor: '#22c55e', background: '#f6fef9', color: '#166534' }
-          : { borderColor: 'transparent' }
+          ? { 
+              borderColor: '#22c55e', 
+              background: 'linear-gradient(135deg, #f6fef9 0%, #ecfdf5 100%)', 
+              color: '#166534',
+              boxShadow: '0 4px 12px rgba(34, 197, 94, 0.10)'
+            }
+          : { 
+              borderColor: 'transparent',
+              background: '#fafafa',
+              color: '#6b7280'
+            }
         }
       >
-        <List className="w-4 h-4 mr-1" /> Availability Summary
+        <List className="w-5 h-5 mr-2" /> Availability Summary
       </Button>
       <Button
         variant={activeTab === 'slotwise' ? 'primary' : 'outline'}
         onClick={() => setActiveTab('slotwise')}
-        className="rounded-t-lg border-b-2"
+        className="rounded-t-lg border-b-4 px-4 py-2 font-semibold transition-all duration-200 hover:shadow-md"
         style={activeTab === 'slotwise'
-          ? { borderColor: '#0ea5e9', background: '#f0f9ff', color: '#075985' }
-          : { borderColor: 'transparent' }
+          ? { 
+              borderColor: '#0ea5e9', 
+              background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)', 
+              color: '#075985',
+              boxShadow: '0 4px 12px rgba(14, 165, 233, 0.10)'
+            }
+          : { 
+              borderColor: 'transparent',
+              background: '#fafafa',
+              color: '#6b7280'
+            }
         }
       >
-        <Layers className="w-4 h-4 mr-1" /> Slot Wise Availability
+        <Layers className="w-5 h-5 mr-2" /> Slot Wise Availability
       </Button>
       <Button
         variant={activeTab === 'referred' ? 'primary' : 'outline'}
         onClick={() => setActiveTab('referred')}
-        className="rounded-t-lg border-b-2"
+        className="rounded-t-lg border-b-4 px-4 py-2 font-semibold transition-all duration-200 hover:shadow-md"
         style={activeTab === 'referred'
-          ? { borderColor: '#2563eb', background: '#eef2ff', color: '#1e40af' }
-          : { borderColor: 'transparent' }
+          ? { 
+              borderColor: '#2563eb', 
+              background: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)', 
+              color: '#1e40af',
+              boxShadow: '0 4px 12px rgba(37, 99, 235, 0.10)'
+            }
+          : { 
+              borderColor: 'transparent',
+              background: '#fafafa',
+              color: '#6b7280'
+            }
         }
       >
-        <AlertTriangle className="w-4 h-4 mr-1" /> Referred Slots
+        <AlertTriangle className="w-5 h-5 mr-2" /> Referred Slots
       </Button>
     </div>
   );
@@ -105,38 +132,63 @@ const Availability: React.FC = () => {
   const renderSummary = () => {
     const days = getMonthDays(year, month);
     return (
-      <div>
-        <div className="flex items-center justify-between mb-2">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-4">
+        <div className="flex items-center justify-between mb-4 bg-gradient-to-r from-gray-50 to-white p-3 rounded-lg border border-gray-100">
           <div className="flex space-x-2">
-            <Button variant="primary" onClick={() => setShowOpenAvailModal(true)}>
-              <Plus className="w-4 h-4 mr-1" /> Open Availability
+            <Button 
+              variant="primary" 
+              onClick={() => setShowOpenAvailModal(true)}
+              className="shadow-md hover:shadow-lg transition-all duration-200 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold"
+            >
+              <Plus className="w-4 h-4 mr-2" /> Open Availability
             </Button>
-            <Button variant="outline" onClick={() => setShowDeleteAvailModal(true)}>
-              <Trash2 className="w-4 h-4 mr-1" /> Delete Availability
-            </Button>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" onClick={() => {
-              if (month === 0) { setMonth(11); setYear(year - 1); }
-              else setMonth(month - 1);
-            }}>
-              <ChevronLeft className="w-4 h-4" />
-            </Button>
-            <span className="font-semibold">{new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
-            <Button variant="outline" onClick={() => {
-              if (month === 11) { setMonth(0); setYear(year + 1); }
-              else setMonth(month + 1);
-            }}>
-              <ChevronRight className="w-4 h-4" />
+            <Button 
+              variant="outline" 
+              onClick={() => setShowDeleteAvailModal(true)}
+              className="border-2 border-red-200 text-red-600 hover:bg-red-50 hover:border-red-300 transition-all duration-200 font-medium"
+            >
+              <Trash2 className="w-4 h-4 mr-2" /> Delete Availability
             </Button>
           </div>
-          <Button variant="danger" onClick={() => setShowConflictsModal(true)}>
+          <div className="flex items-center space-x-2 bg-white px-2 py-1 rounded-lg border border-gray-200 shadow-sm">
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                if (month === 0) { setMonth(11); setYear(year - 1); }
+                else setMonth(month - 1);
+              }}
+              className="hover:bg-gray-100 transition-colors duration-200 border-gray-300"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </Button>
+            <span className="font-bold text-base text-gray-800 min-w-[120px] text-center">
+              {new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' })}
+            </span>
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                if (month === 11) { setMonth(0); setYear(year + 1); }
+                else setMonth(month + 1);
+              }}
+              className="hover:bg-gray-100 transition-colors duration-200 border-gray-300"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </Button>
+          </div>
+          <Button 
+            variant="danger" 
+            onClick={() => setShowConflictsModal(true)}
+            className="bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-200"
+          >
+            <AlertTriangle className="w-4 h-4 mr-2" />
             {conflictsForMonth.length} Conflicts
           </Button>
         </div>
-        <div className="grid grid-cols-7 gap-2 mt-4">
+        <div className="grid grid-cols-7 gap-2 mt-2">
           {weekDays.map(day => (
-            <div key={day} className="text-center font-bold">{day}</div>
+            <div key={day} className="text-center font-bold text-gray-700 py-2 bg-gray-50 rounded border border-gray-200">
+              {day}
+            </div>
           ))}
           {days.map(date => {
             // Dummy logic for slots/referred
@@ -154,7 +206,7 @@ const Availability: React.FC = () => {
                   shadow-sm
                 `}
                 style={{
-                  minHeight: 60,
+                  minHeight: 48,
                   outline: 'none',
                   marginBottom: 2,
                   marginTop: 2,
@@ -186,7 +238,6 @@ const Availability: React.FC = () => {
 
   // --- Slotwise Availability Page ---
   const renderSlotwise = () => {
-    // Calculate week days
     const weekDates = Array.from({ length: 7 }, (_, i) => {
       const d = new Date(startOfWeek);
       d.setDate(startOfWeek.getDate() + i);
@@ -259,7 +310,7 @@ const Availability: React.FC = () => {
           {emergencyBlocks.length > 0 && (
             <div className="space-y-3 mb-4">
               {emergencyBlocks.map(block => (
-                <Card key={block.id} className="flex items-center justify-between border-l-4 border-rose-500 bg-rose-50">
+                <Card key={block.id} className="flex items-center justify-between border-l-4 border-rose-500 bg-rose-50 p-3 rounded-lg mb-2">
                   <div>
                     <div className="font-semibold text-rose-700">{block.from} - {block.to} (Emergency)</div>
                     <div className="text-xs text-gray-500">Duration: {block.duration}</div>
@@ -290,7 +341,7 @@ const Availability: React.FC = () => {
             {normalBlocks.map(block => (
               <Card
                 key={block.id}
-                className="flex items-center justify-between border-l-4 border-green-500 bg-white"
+                className="flex items-center justify-between border-l-4 border-green-500 bg-white p-3 rounded-lg mb-2"
               >
                 <div>
                   <div className="font-semibold text-green-700">
@@ -412,7 +463,7 @@ const Availability: React.FC = () => {
             {dummySlots.filter(b => b.referred).map(block => (
               <Card
                 key={block.id}
-                className="flex items-center justify-between border-l-4 border-blue-500 bg-blue-50"
+                className="flex items-center justify-between border-l-4 border-blue-500 bg-blue-50 p-3 rounded-lg mb-2"
               >
                 <div>
                   <div className="font-semibold text-blue-700">
@@ -499,8 +550,8 @@ const Availability: React.FC = () => {
 
   // --- Modals (dummy placeholders) ---
   const Modal = ({ open, onClose, children }: any) => open ? (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded shadow-lg min-w-[320px] relative">
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+      <div className="bg-white p-4 rounded-lg shadow-lg min-w-[320px] max-w-[480px] relative border border-gray-200">
         <button className="absolute top-2 right-2" onClick={onClose}><X /></button>
         {children}
       </div>
@@ -509,185 +560,181 @@ const Availability: React.FC = () => {
 
   // --- Main Render ---
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Availability Management</h1>
-      {renderTabs()}
-      <div className="mt-4">
-        {activeTab === 'summary' && renderSummary()}
-        {activeTab === 'slotwise' && renderSlotwise()}
-        {activeTab === 'referred' && renderReferred()}
-      </div>
-
-      {/* Open Availability Modal */}
-      <Modal open={showOpenAvailModal} onClose={() => setShowOpenAvailModal(false)}>
-        <h2 className="font-bold mb-2">Open Availability</h2>
-        <label className="block mb-2">Open availability until:</label>
-        <input type="date" className="border p-2 rounded w-full mb-2" />
-        <label className="block mb-2">Allowed payment duration for referred slots (days):</label>
-        <input type="number" min={1} className="border p-2 rounded w-full mb-4" placeholder="Number of days" />
-        <Button variant="primary" onClick={() => setShowOpenAvailModal(false)}>Confirm</Button>
-      </Modal>
-
-      {/* Delete Availability Modal */}
-      <Modal open={showDeleteAvailModal} onClose={() => setShowDeleteAvailModal(false)}>
-        <h2 className="font-bold mb-2">Delete Availability</h2>
-        <label className="block mb-2">From:</label>
-        <input type="date" className="border p-2 rounded w-full mb-2" />
-        <label className="block mb-2">To:</label>
-        <input type="date" className="border p-2 rounded w-full mb-4" />
-        <Button variant="danger" onClick={() => setShowDeleteAvailModal(false)}>Delete</Button>
-      </Modal>
-
-      {/* Conflicts Modal */}
-      <Modal open={showConflictsModal} onClose={() => setShowConflictsModal(false)}>
-        <h2 className="font-bold mb-2">Conflicts</h2>
-        {dummyConflicts.map((c, i) => (
-          <Card
-            key={i}
-            className="mb-2 cursor-pointer hover:bg-blue-50"
-            onClick={() => {
-              setShowConflictsModal(false);
-              setActiveTab('slotwise');
-              setSelectedDay(new Date(c.date));
-            }}
-          >
+    <div className="p-4 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-2xl font-bold mb-4 text-gray-800 bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex items-center">
+          <Calendar className="w-6 h-6 mr-2 text-blue-600" />
+          Availability Management
+        </h1>
+        {renderTabs()}
+        <div className="mt-2">
+          {activeTab === 'summary' && renderSummary()}
+          {activeTab === 'slotwise' && renderSlotwise()}
+          {activeTab === 'referred' && renderReferred()}
+        </div>
+        {/* Open Availability Modal */}
+        <Modal open={showOpenAvailModal} onClose={() => setShowOpenAvailModal(false)}>
+          <h2 className="font-bold mb-2">Open Availability</h2>
+          <label className="block mb-2">Open availability until:</label>
+          <input type="date" className="border p-2 rounded w-full mb-2" />
+          <label className="block mb-2">Allowed payment duration for referred slots (days):</label>
+          <input type="number" min={1} className="border p-2 rounded w-full mb-4" placeholder="Number of days" />
+          <Button variant="primary" onClick={() => setShowOpenAvailModal(false)}>Confirm</Button>
+        </Modal>
+        {/* Delete Availability Modal */}
+        <Modal open={showDeleteAvailModal} onClose={() => setShowDeleteAvailModal(false)}>
+          <h2 className="font-bold mb-2">Delete Availability</h2>
+          <label className="block mb-2">From:</label>
+          <input type="date" className="border p-2 rounded w-full mb-2" />
+          <label className="block mb-2">To:</label>
+          <input type="date" className="border p-2 rounded w-full mb-4" />
+          <Button variant="danger" onClick={() => setShowDeleteAvailModal(false)}>Delete</Button>
+        </Modal>
+        {/* Conflicts Modal */}
+        <Modal open={showConflictsModal} onClose={() => setShowConflictsModal(false)}>
+          <h2 className="font-bold mb-2">Conflicts</h2>
+          {dummyConflicts.map((c, i) => (
+            <Card
+              key={i}
+              className="mb-2 cursor-pointer hover:bg-blue-50"
+              onClick={() => {
+                setShowConflictsModal(false);
+                setActiveTab('slotwise');
+                setSelectedDay(new Date(c.date));
+              }}
+            >
+              <div>Availability Tried To Set: 09:00 - 10:00 (1h)</div>
+              <div>Conflicts:</div>
+              <div className="ml-2 text-sm text-blue-700">Referred slot: {c.date} 09:00 - 10:00</div>
+            </Card>
+          ))}
+        </Modal>
+        {/* Availability Block Modal */}
+        <Modal open={showSlotBlockModal} onClose={() => setShowSlotBlockModal(false)}>
+          <h2 className="font-bold mb-2">Create Availability Block</h2>
+          <div className="mb-2">
+            <label>Time:</label>
+            <div className="flex space-x-2">
+              <input type="time" className="border p-2 rounded" />
+              <span>to</span>
+              <input type="time" className="border p-2 rounded" />
+            </div>
+          </div>
+          <div className="mb-2">
+            <label>Time Duration:</label>
+            <input type="text" className="border p-2 rounded w-full" placeholder="e.g. 30m" />
+          </div>
+          <div className="mb-2">
+            <label>Repeats:</label>
+            <div className="flex space-x-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowSelectDays(!showSelectDays)}
+              >
+                Select Days
+              </Button>
+              <Button variant="outline" size="sm">Repeats Until</Button>
+            </div>
+            {showSelectDays && (
+              <input type="date" className="border p-2 rounded w-full mt-2" />
+            )}
+            <select className="border p-2 rounded w-full mt-2">
+              <option>Daily</option>
+              <option>On every week</option>
+            </select>
+          </div>
+          <Button variant="primary" onClick={() => { setShowSlotBlockModal(false); setShowBlockConflictsModal(true); }}>Confirm</Button>
+        </Modal>
+        {/* Edit Block Modal */}
+        <Modal open={showEditBlockModal} onClose={() => setShowEditBlockModal(false)}>
+          <h2 className="font-bold mb-2">Edit Availability Block</h2>
+          <div className="mb-2">
+            <label>Time:</label>
+            <div className="flex space-x-2">
+              <input type="time" className="border p-2 rounded" defaultValue={editBlock?.from} />
+              <span>to</span>
+              <input type="time" className="border p-2 rounded" defaultValue={editBlock?.to} />
+            </div>
+          </div>
+          <div className="mb-2">
+            <label>Time Duration:</label>
+            <input type="text" className="border p-2 rounded w-full" defaultValue={editBlock?.duration} />
+          </div>
+          <Button variant="primary" onClick={() => setShowEditBlockModal(false)}>Save</Button>
+        </Modal>
+        {/* Emergency Slot Modal */}
+        <Modal open={showEmergencySlotModal} onClose={() => setShowEmergencySlotModal(false)}>
+          <h2 className="font-bold mb-2">Create Emergency Slot</h2>
+          <div className="mb-2">
+            <label>Time:</label>
+            <div className="flex space-x-2">
+              <input type="time" className="border p-2 rounded" />
+              <span>to</span>
+              <input type="time" className="border p-2 rounded" />
+            </div>
+          </div>
+          <div className="mb-2">
+            <label>Refer:</label>
+            <input
+              type="text"
+              className="border p-2 rounded w-full"
+              placeholder="Type patient name"
+              value={emergencyPatient}
+              onChange={e => {
+                setEmergencyPatient(e.target.value);
+                setEmergencyPatientSuggestions([
+                  { id: 1, name: 'John Doe' },
+                  { id: 2, name: 'Jane Smith' }
+                ].filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase())));
+              }}
+            />
+            {emergencyPatient && (
+              <div className="border rounded bg-gray-50 mt-1">
+                {emergencyPatientSuggestions.map(s => (
+                  <div
+                    key={s.id}
+                    className="p-1 hover:bg-blue-100 cursor-pointer"
+                    onClick={() => { setEmergencyPatient(s.name); setEmergencyPatientSuggestions([]); }}
+                  >
+                    {s.name} (ID: {s.id})
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="mb-2">
+            <label>Set Open Time:</label>
+            <div className="flex space-x-2">
+              <input type="date" className="border p-2 rounded" />
+              <input type="time" className="border p-2 rounded" />
+            </div>
+          </div>
+          <div className="mb-2 flex items-center space-x-2">
+            <label>Open Emergency Slot:</label>
+            <input
+              type="checkbox"
+              checked={emergencyOpen}
+              onChange={e => setEmergencyOpen(e.target.checked)}
+              className="accent-blue-500"
+            />
+          </div>
+          <Button variant="primary" onClick={() => setShowEmergencySlotModal(false)}>Create Emergency Slot</Button>
+        </Modal>
+        {/* Block Conflicts Modal */}
+        <Modal open={showBlockConflictsModal} onClose={() => setShowBlockConflictsModal(false)}>
+          <h2 className="font-bold mb-2">Possible Conflicts</h2>
+          <Card className="mb-2">
             <div>Availability Tried To Set: 09:00 - 10:00 (1h)</div>
             <div>Conflicts:</div>
-            <div className="ml-2 text-sm text-blue-700">Referred slot: {c.date} 09:00 - 10:00</div>
+            <div className="ml-2 text-sm text-blue-700">Referred slot: 2025-07-24 09:00 - 10:00</div>
           </Card>
-        ))}
-      </Modal>
-
-      {/* Availability Block Modal */}
-      <Modal open={showSlotBlockModal} onClose={() => setShowSlotBlockModal(false)}>
-        <h2 className="font-bold mb-2">Create Availability Block</h2>
-        <div className="mb-2">
-          <label>Time:</label>
-          <div className="flex space-x-2">
-            <input type="time" className="border p-2 rounded" />
-            <span>to</span>
-            <input type="time" className="border p-2 rounded" />
-          </div>
-        </div>
-        <div className="mb-2">
-          <label>Time Duration:</label>
-          <input type="text" className="border p-2 rounded w-full" placeholder="e.g. 30m" />
-        </div>
-        <div className="mb-2">
-          <label>Repeats:</label>
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowSelectDays(!showSelectDays)}
-            >
-              Select Days
-            </Button>
-            <Button variant="outline" size="sm">Repeats Until</Button>
-          </div>
-          {showSelectDays && (
-            <input type="date" className="border p-2 rounded w-full mt-2" />
-          )}
-          <select className="border p-2 rounded w-full mt-2">
-            <option>Daily</option>
-            <option>On every week</option>
-          </select>
-        </div>
-        <Button variant="primary" onClick={() => { setShowSlotBlockModal(false); setShowBlockConflictsModal(true); }}>Confirm</Button>
-      </Modal>
-
-      {/* Edit Block Modal */}
-      <Modal open={showEditBlockModal} onClose={() => setShowEditBlockModal(false)}>
-        <h2 className="font-bold mb-2">Edit Availability Block</h2>
-        <div className="mb-2">
-          <label>Time:</label>
-          <div className="flex space-x-2">
-            <input type="time" className="border p-2 rounded" defaultValue={editBlock?.from} />
-            <span>to</span>
-            <input type="time" className="border p-2 rounded" defaultValue={editBlock?.to} />
-          </div>
-        </div>
-        <div className="mb-2">
-          <label>Time Duration:</label>
-          <input type="text" className="border p-2 rounded w-full" defaultValue={editBlock?.duration} />
-        </div>
-        <Button variant="primary" onClick={() => setShowEditBlockModal(false)}>Save</Button>
-      </Modal>
-
-      {/* Emergency Slot Modal */}
-      <Modal open={showEmergencySlotModal} onClose={() => setShowEmergencySlotModal(false)}>
-        <h2 className="font-bold mb-2">Create Emergency Slot</h2>
-        <div className="mb-2">
-          <label>Time:</label>
-          <div className="flex space-x-2">
-            <input type="time" className="border p-2 rounded" />
-            <span>to</span>
-            <input type="time" className="border p-2 rounded" />
-          </div>
-        </div>
-        <div className="mb-2">
-          <label>Refer:</label>
-          <input
-            type="text"
-            className="border p-2 rounded w-full"
-            placeholder="Type patient name"
-            value={emergencyPatient}
-            onChange={e => {
-              setEmergencyPatient(e.target.value);
-              // Dummy suggestions
-              setEmergencyPatientSuggestions([
-                { id: 1, name: 'John Doe' },
-                { id: 2, name: 'Jane Smith' }
-              ].filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase())));
-            }}
-          />
-          {emergencyPatient && (
-            <div className="border rounded bg-gray-50 mt-1">
-              {emergencyPatientSuggestions.map(s => (
-                <div
-                  key={s.id}
-                  className="p-1 hover:bg-blue-100 cursor-pointer"
-                  onClick={() => { setEmergencyPatient(s.name); setEmergencyPatientSuggestions([]); }}
-                >
-                  {s.name} (ID: {s.id})
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-        <div className="mb-2">
-          <label>Set Open Time:</label>
-          <div className="flex space-x-2">
-            <input type="date" className="border p-2 rounded" />
-            <input type="time" className="border p-2 rounded" />
-          </div>
-        </div>
-        <div className="mb-2 flex items-center space-x-2">
-          <label>Open Emergency Slot:</label>
-          <input
-            type="checkbox"
-            checked={emergencyOpen}
-            onChange={e => setEmergencyOpen(e.target.checked)}
-            className="accent-blue-500"
-          />
-        </div>
-        <Button variant="primary" onClick={() => setShowEmergencySlotModal(false)}>Create Emergency Slot</Button>
-      </Modal>
-
-      {/* Block Conflicts Modal */}
-      <Modal open={showBlockConflictsModal} onClose={() => setShowBlockConflictsModal(false)}>
-        <h2 className="font-bold mb-2">Possible Conflicts</h2>
-        <Card className="mb-2">
-          <div>Availability Tried To Set: 09:00 - 10:00 (1h)</div>
-          <div>Conflicts:</div>
-          <div className="ml-2 text-sm text-blue-700">Referred slot: 2025-07-24 09:00 - 10:00</div>
-        </Card>
-        <div className="mt-2">Save the rest of the slots?</div>
-        <Button variant="primary" onClick={() => setShowBlockConflictsModal(false)}>Yes, Save</Button>
-      </Modal>
+          <div className="mt-2">Save the rest of the slots?</div>
+          <Button variant="primary" onClick={() => setShowBlockConflictsModal(false)}>Yes, Save</Button>
+        </Modal>
+      </div>
     </div>
   );
 };
 
 export default Availability;
-// ...end of file...
