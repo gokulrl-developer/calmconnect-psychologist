@@ -14,6 +14,8 @@ import Wallet from './pages/Wallet';
 import Complaints from './pages/Complaints';
 import ComplaintDetails from './pages/ComplaintDetails';
 import Profile from './pages/Profile';
+import WrongActions from './pages/WrongActions';
+import Notifications from './pages/Notifications';
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
               <Route path="complaints" element={<Complaints />} />
               <Route path="complaints/:complaintId" element={<ComplaintDetails />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="wrong-actions" element={<WrongActions />} />
+              <Route path="notifications" element={<Notifications />} />
             </Route>
           </Routes>
         </div>

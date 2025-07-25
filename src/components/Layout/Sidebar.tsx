@@ -10,7 +10,9 @@ import {
   Menu,
   X,
   Users,
-  Wallet
+  Wallet,
+  Info,
+  Bell
 } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 
@@ -50,6 +52,9 @@ const Sidebar: React.FC = () => {
     { icon: AlertCircle, label: 'Raise Complaint', path: '/complaints' },
     { icon: Wallet, label: 'Wallet', path: '/wallet' },
     { icon: User, label: 'Profile', path: '/profile' },
+    // --- Added Tabs ---
+    { icon: Info, label: 'Wrong Actions', path: '/wrong-actions' },
+    { icon: Bell, label: 'Notifications', path: '/notifications' },
   ];
 
   return (
